@@ -17,6 +17,7 @@
 		27159FF02364B019000EE9D2 /* AppMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FEE2364B019000EE9D2 /* AppMode.swift */; };
 		27159FF22364C695000EE9D2 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FF12364C695000EE9D2 /* ApiClient.swift */; };
 		27159FF32364C695000EE9D2 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FF12364C695000EE9D2 /* ApiClient.swift */; };
+		27159FF62364E614000EE9D2 /* VenueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FF52364E614000EE9D2 /* VenueTableViewCell.swift */; };
 		273868102364555B009C530A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738680F2364555B009C530A /* AppDelegate.swift */; };
 		273868122364555B009C530A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273868112364555B009C530A /* ViewController.swift */; };
 		273868152364555B009C530A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 273868132364555B009C530A /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		27159FEB2364A5C0000EE9D2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		27159FEE2364B019000EE9D2 /* AppMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMode.swift; sourceTree = "<group>"; };
 		27159FF12364C695000EE9D2 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		27159FF52364E614000EE9D2 /* VenueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueTableViewCell.swift; sourceTree = "<group>"; };
 		2738680C2364555B009C530A /* NearBy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NearBy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2738680F2364555B009C530A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		273868112364555B009C530A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		27159FF42364E5A0000EE9D2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				273868112364555B009C530A /* ViewController.swift */,
+				27159FF52364E614000EE9D2 /* VenueTableViewCell.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		273868032364555B009C530A = {
 			isa = PBXGroup;
 			children = (
@@ -114,9 +125,9 @@
 		2738680E2364555B009C530A /* NearBy-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				27159FF42364E5A0000EE9D2 /* UI */,
 				27159FEA2364A5A7000EE9D2 /* Model */,
 				2738680F2364555B009C530A /* AppDelegate.swift */,
-				273868112364555B009C530A /* ViewController.swift */,
 				273868132364555B009C530A /* Main.storyboard */,
 				273868162364555D009C530A /* Assets.xcassets */,
 				273868182364555D009C530A /* LaunchScreen.storyboard */,
@@ -325,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27159FF22364C695000EE9D2 /* ApiClient.swift in Sources */,
+				27159FF62364E614000EE9D2 /* VenueTableViewCell.swift in Sources */,
 				273868122364555B009C530A /* ViewController.swift in Sources */,
 				27159FE82364A4BC000EE9D2 /* Venue.swift in Sources */,
 				27159FEF2364B019000EE9D2 /* AppMode.swift in Sources */,

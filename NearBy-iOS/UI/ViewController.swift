@@ -74,11 +74,13 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as UITableViewCell
-        let venue = venuesToShow[indexPath.row]
-        cell.textLabel?.text = venue.name
-        cell.detailTextLabel?.text = venue.address
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as? VenueTableViewCell
+        if let venueCell = cell {
+            let venue = venuesToShow[indexPath.row]
+            venueCell.bindViews(with: venue)
+            return venueCell
+        }
+        return UITableViewCell()
     }
     
     // Location Delegate
