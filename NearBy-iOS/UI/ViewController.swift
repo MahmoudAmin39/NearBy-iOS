@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     let networkReachabilityManager = NetworkReachabilityManager(host: "www.apple.com")
     let locationManager = CLLocationManager()
     let userDefaults = UserDefaults.standard
-    var apiClient = ApiClient()
+    var apiClient = VenueApiClient()
     
     // Properties
     var errorCode: AppError?

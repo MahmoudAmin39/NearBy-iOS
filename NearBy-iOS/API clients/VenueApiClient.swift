@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import Alamofire
 
-struct ApiClient {
+struct VenueApiClient {
     
     let baseUrl = "https://api.foursquare.com/v2/"
     let clientId = "5AAKGAAOYCKET3DK3IRT42YQOBP50EGTJU4S0U1P1GE3QEI5"

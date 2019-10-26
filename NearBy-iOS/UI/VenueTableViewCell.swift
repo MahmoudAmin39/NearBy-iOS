@@ -16,9 +16,15 @@ class VenueTableViewCell: UITableViewCell {
     
     @IBOutlet weak var venueAddressLabel: UILabel!
     
+    var apiClient = PhotoApiClient()
+    
     func bindViews(with venueData: Venue) {
         venueImageView.image = UIImage(named: "photo")
         venueNameLabel.text = venueData.name
         venueAddressLabel.text = venueData.address
+        
+        apiClient.getPhotoUrl(forVenue: venueData.id) { url in
+            
+        }
     }
 }
