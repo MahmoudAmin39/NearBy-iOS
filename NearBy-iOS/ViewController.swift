@@ -30,11 +30,13 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     let networkReachabilityManager = NetworkReachabilityManager(host: "www.apple.com")
     let locationManager = CLLocationManager()
     let userDefaults = UserDefaults.standard
+    var apiClient = ApiClient()
     
     // Properties
     var errorCode: AppError?
     var appMode: AppMode = .Realtime
     var lastLocationSentToServer: CLLocation?
+    var venuesToShow = [Venue]()
     
     // Constants
     let ThresholdDistance = 500.0
@@ -110,12 +112,14 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
                 // No location recorded yet
                 self.lastLocationSentToServer = currentLocation
                 // TODO: Send a request with these coordintes
+                self.sendRequest()
                 return
             }
             
             let distance = currentLocation.distance(from: lastLocationRecorded)
             if distance > ThresholdDistance {
                 // TODO: Send a request with these coordintes
+                self.sendRequest()
             }
         }
     }
@@ -129,9 +133,20 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     
     func sendRequest() {
         if let currenLocation = lastLocationSentToServer {
-            let lat = currenLocation.coordinate.latitude
-            let long = currenLocation.coordinate.longitude
-            let latLong = "\(lat),\(long)"
+            apiClient.getVenues(of: currenLocation) { [weak self] (venues, error) in
+                guard let venues = venues else {
+                    // Venues are nil
+                    if let error = error {
+                        // Error is not nil
+                        show(error)
+                    }
+                    return
+                }
+                
+                showList()
+                self?.venuesToShow = venues
+                self?.venuesTableView.reloadData()
+            }
         }
     }
     
