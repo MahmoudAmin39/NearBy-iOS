@@ -36,19 +36,25 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     var appMode: AppMode = .Realtime
     var lastLocationSentToServer: CLLocation?
     
+    // Constants
+    let ThresholdDistance = 500.0
+    let AppModeKey = "AppMode"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the delegates
         venuesTableView.dataSource = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = Double(500.0)
+        locationManager.distanceFilter = ThresholdDistance
 
         // Check internet
         networkReachabilityManager?.listener = { status in
             switch status {
             case .reachable(.ethernetOrWiFi):
+                self.showProgress()
                 self.locationManager.requestWhenInUseAuthorization()
+            case .unknown: self.showProgress()
             default:
                 // No internet
                 let error = ErrorObject(messageBody: "No internet Available", imageName: "cloud", errorCode: .InternetNotAvailable)
@@ -75,7 +81,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         switch status {
         case .authorizedWhenInUse:
             // Get the app mode
-            appMode = AppMode(rawValue: userDefaults.integer(forKey: "AppMode")) ?? .Realtime
+            appMode = AppMode(rawValue: userDefaults.integer(forKey: AppModeKey)) ?? .Realtime
             setBarButton()
             // TODO: Get the location
             if CLLocationManager.locationServicesEnabled() {
@@ -108,7 +114,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             }
             
             let distance = currentLocation.distance(from: lastLocationRecorded)
-            if distance > 500.0 {
+            if distance > ThresholdDistance {
                 // TODO: Send a request with these coordintes
             }
         }
@@ -119,11 +125,21 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         show(error)
     }
     
+    // API functions
+    
+    func sendRequest() {
+        if let currenLocation = lastLocationSentToServer {
+            let lat = currenLocation.coordinate.latitude
+            let long = currenLocation.coordinate.longitude
+            let latLong = "\(lat),\(long)"
+        }
+    }
+    
     // View functions
     
     func show(_ error: ErrorObject) {
         errorView.isHidden = false
-        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
         venuesTableView.isHidden = true
         
         errorLabel.text = error.messageBody
@@ -140,13 +156,13 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     
     func showProgress() {
         errorView.isHidden = true
-        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         venuesTableView.isHidden = true
     }
     
     func showList() {
         errorView.isHidden = true
-        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
         venuesTableView.isHidden = false
     }
     
@@ -158,6 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             barItemButton.title = "Realtime"
         }
     }
+    
     // IBActions
     
     @IBAction func retryButtonClicked() {
@@ -178,7 +195,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             appMode = .Realtime
             locationManager.startUpdatingLocation()
         }
-        userDefaults.set(appMode.rawValue, forKey: "AppMode")
+        userDefaults.set(appMode.rawValue, forKey: AppModeKey)
         setBarButton()
     }
 }
