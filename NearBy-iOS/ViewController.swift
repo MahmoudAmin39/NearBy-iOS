@@ -70,11 +70,15 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     // TableView Implementation
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return venuesToShow.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as UITableViewCell
+        let venue = venuesToShow[indexPath.row]
+        cell.textLabel?.text = venue.name
+        cell.detailTextLabel?.text = venue.address
+        return cell
     }
     
     // Location Delegate
