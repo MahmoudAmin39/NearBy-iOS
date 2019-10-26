@@ -23,8 +23,13 @@ class VenueTableViewCell: UITableViewCell {
         venueNameLabel.text = venueData.name
         venueAddressLabel.text = venueData.address
         
-        apiClient.getPhotoUrl(forVenue: venueData.id) { url in
+        apiClient.getPhotoUrl(forVenue: venueData.id) { [weak self] url in
+            guard let url = url else {
+                self?.venueImageView.image = UIImage(named: "error")
+                return
+            }
             
+            // Show the image
         }
     }
 }
