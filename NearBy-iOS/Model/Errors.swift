@@ -17,4 +17,5 @@ struct ErrorObject {
 enum AppError: Error {
     case InternetNotAvailable
     case LocationAcceessDenied
+    case LocationNotFound
 }

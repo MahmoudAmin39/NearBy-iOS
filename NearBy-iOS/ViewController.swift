@@ -34,13 +34,16 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     // Properties
     var errorCode: AppError?
     var appMode: AppMode = .Realtime
+    var lastLocationSentToServer: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the delegates
         venuesTableView.dataSource = self
         locationManager.delegate = self
-        
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = Double(500.0)
+
         // Check internet
         networkReachabilityManager?.listener = { status in
             switch status {
@@ -49,7 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             default:
                 // No internet
                 let error = ErrorObject(messageBody: "No internet Available", imageName: "cloud", errorCode: .InternetNotAvailable)
-                self.showError(error: error)
+                self.show(error)
             }
         }
         // Listen to network changes
@@ -75,17 +78,50 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             appMode = AppMode(rawValue: userDefaults.integer(forKey: "AppMode")) ?? .Realtime
             setBarButton()
             // TODO: Get the location
+            if CLLocationManager.locationServicesEnabled() {
+                switch(appMode) {
+                case .Realtime:
+                    locationManager.startUpdatingLocation()
+                case .SingleUpdate:
+                    locationManager.requestLocation()
+                }
+            } else {
+                let error = ErrorObject(messageBody: "Please enable Location services to access your location", imageName: "location", errorCode: .LocationNotFound)
+                show(error)
+            }
             break
         case .denied, .restricted:
-            showError(error: ErrorObject(messageBody: "Please grant the accees to location for the app to work properly", imageName: "location", errorCode: .LocationAcceessDenied))
-            errorCode = .LocationAcceessDenied
+            let error = ErrorObject(messageBody: "Please grant the accees to location for the app to work properly", imageName: "location", errorCode: .LocationAcceessDenied)
+            show(error)
         default: break
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last
+        if let currentLocation = location {
+            guard let lastLocationRecorded = lastLocationSentToServer else {
+                // No location recorded yet
+                self.lastLocationSentToServer = currentLocation
+                // TODO: Send a request with these coordintes
+                return
+            }
+            
+            let distance = currentLocation.distance(from: lastLocationRecorded)
+            if distance > 500.0 {
+                // TODO: Send a request with these coordintes
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let error = ErrorObject(messageBody: error.localizedDescription, imageName: "location", errorCode: .LocationNotFound)
+        show(error)
+    }
+    
     // View functions
     
-    func showError(error: ErrorObject) {
+    func show(_ error: ErrorObject) {
         errorView.isHidden = false
         activityIndicator.isHidden = true
         venuesTableView.isHidden = true
@@ -98,6 +134,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
             case .InternetNotAvailable, .LocationAcceessDenied:
                 // The framework handles the internet recovery
                 retryBUtton.isHidden = true
+        case .LocationNotFound: break
         }
     }
     
@@ -136,8 +173,10 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         switch appMode {
         case .Realtime:
             appMode = .SingleUpdate
+            locationManager.stopUpdatingLocation()
         case .SingleUpdate:
             appMode = .Realtime
+            locationManager.startUpdatingLocation()
         }
         userDefaults.set(appMode.rawValue, forKey: "AppMode")
         setBarButton()
