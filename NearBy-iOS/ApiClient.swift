@@ -50,13 +50,13 @@ struct ApiClient {
                     }
                 
                     guard let jsonResponse = response.result.value as? [String: Any],
-                        let responseFromServer = jsonResponse["response"] as? [String: Any], let groups = responseFromServer["groups"] as? [Any] else {
+                        let responseFromServer = jsonResponse["response"] as? [String: Any], let groups = responseFromServer["groups"] as? [Any], let group = groups.first as? [String: Any], let items = group["items"] as? [Any] else {
                             let error = ErrorObject(messageBody: "Error parsing the data", imageName: "cloud", errorCode: .JSONParseError)
                             completion(nil, error)
                             return
                     }
                 
-                    print(groups)
+                    print(items)
                     completion([Venue](), nil)
             }
         }
