@@ -58,15 +58,10 @@ struct ApiClient {
                     var venues = [Venue]()
                     _ = items.enumerated().map { (index, item) in
                         let castedItem = item as? [String: Any]
-                        guard let newItem = castedItem else {
-                            print("Error with item at \(index)")
-                            return
-                        }
-                        let venue = Venue(with: newItem["venue"] as? [String: Any])
-                        guard let newVenue = venue else {
-                            print("Error with venue at \(index)")
-                            return
-                        }
+                        guard let newItem = castedItem else { return }
+                        let venueJson = newItem["venue"] as? [String: Any]
+                        let venue = Venue(with: venueJson)
+                        guard let newVenue = venue else { return }
                         venues.append(newVenue)
                     }
                     completion(venues, nil)
