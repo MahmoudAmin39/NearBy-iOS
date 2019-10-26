@@ -138,12 +138,12 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
                     // Venues are nil
                     if let error = error {
                         // Error is not nil
-                        show(error)
+                        self?.show(error)
                     }
                     return
                 }
                 
-                showList()
+                self?.showList()
                 self?.venuesToShow = venues
                 self?.venuesTableView.reloadData()
             }
@@ -166,6 +166,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
                 // The framework handles the internet recovery
                 retryBUtton.isHidden = true
         case .LocationNotFound: break
+        default: break
         }
     }
     

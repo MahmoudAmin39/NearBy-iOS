@@ -18,4 +18,7 @@ enum AppError: Error {
     case InternetNotAvailable
     case LocationAcceessDenied
     case LocationNotFound
+    case BadRequest
+    case ServerResponseError
+    case JSONParseError
 }
