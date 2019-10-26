@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
+import Alamofire
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var errorView: UIStackView!
     
@@ -22,31 +24,29 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var retryBUtton: UIButton!
     
-    
-    // Internet clouser callback
-    var internetClosure: ((ErrorObject?) -> ())?
-    
-    let viewModel = ViewModel()
-    
+    let networkReachabilityManager = NetworkReachabilityManager(host: "www.apple.com")
+    let locationManager = CLLocationManager()
     var errorCode: AppError?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Set the delegates
         venuesTableView.dataSource = self
-        showProgress()
+        locationManager.delegate = self
         
-        internetClosure = { error in
-            guard let error = error else {
-                self.showProgress()
-                return
+        // Check internet
+        networkReachabilityManager?.listener = { status in
+            switch status {
+            case .reachable(.ethernetOrWiFi):
+                self.locationManager.requestWhenInUseAuthorization()
+            default:
+                // No internet
+                let error = ErrorObject(messageBody: "No internet Available", imageName: "cloud", errorCode: .InternetNotAvailable)
+                self.showError(error: error)
             }
-            // No internet
-            self.showError(error: error)
         }
-        
-        if let internetClosure = internetClosure {
-            viewModel.isInternetAvailable(with: internetClosure)
-        }
+        // Listen to network changes
+        networkReachabilityManager?.startListening()
     }
     
     // TableView Implementation
@@ -57,6 +57,20 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+    
+    // Location Delegate
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            // TODO: Get the location
+            break
+        case .denied, .restricted:
+            showError(error: ErrorObject(messageBody: "Please grant the accees to location for the app to work properly", imageName: "location", errorCode: .LocationAcceessDenied))
+            errorCode = .LocationAcceessDenied
+        default: break
+        }
     }
     
     // Visibility manipulation
@@ -71,9 +85,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.errorCode = error.errorCode
         
         switch error.errorCode {
-        case .InternetNotAvailable:
-            // The framework handles the internet recovery
-            retryBUtton.isHidden = true
+            case .InternetNotAvailable, .LocationAcceessDenied:
+                // The framework handles the internet recovery
+                retryBUtton.isHidden = true
         }
     }
     
@@ -93,6 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         switch errorCode {
         case .none:
             return
+        case .some(.LocationAcceessDenied): break
         default: break
         }
     }

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		27159FE523648A9E000EE9D2 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE423648A9E000EE9D2 /* ViewModel.swift */; };
 		27159FE623648A9E000EE9D2 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE423648A9E000EE9D2 /* ViewModel.swift */; };
+		27159FE82364A4BC000EE9D2 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE72364A4BC000EE9D2 /* Venue.swift */; };
+		27159FE92364A4BC000EE9D2 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE72364A4BC000EE9D2 /* Venue.swift */; };
+		27159FEC2364A5C0000EE9D2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FEB2364A5C0000EE9D2 /* Errors.swift */; };
+		27159FED2364A5C0000EE9D2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FEB2364A5C0000EE9D2 /* Errors.swift */; };
 		273868102364555B009C530A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738680F2364555B009C530A /* AppDelegate.swift */; };
 		273868122364555B009C530A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273868112364555B009C530A /* ViewController.swift */; };
 		273868152364555B009C530A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 273868132364555B009C530A /* Main.storyboard */; };
@@ -32,6 +36,8 @@
 /* Begin PBXFileReference section */
 		1FAA0B3D266221FCE0F30A43 /* Pods_NearBy_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearBy_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27159FE423648A9E000EE9D2 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		27159FE72364A4BC000EE9D2 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		27159FEB2364A5C0000EE9D2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		2738680C2364555B009C530A /* NearBy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NearBy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2738680F2364555B009C530A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		273868112364555B009C530A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27159FEA2364A5A7000EE9D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27159FE72364A4BC000EE9D2 /* Venue.swift */,
+				27159FEB2364A5C0000EE9D2 /* Errors.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		273868032364555B009C530A = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +107,7 @@
 		2738680E2364555B009C530A /* NearBy-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				27159FEA2364A5A7000EE9D2 /* Model */,
 				2738680F2364555B009C530A /* AppDelegate.swift */,
 				273868112364555B009C530A /* ViewController.swift */,
 				273868132364555B009C530A /* Main.storyboard */,
@@ -301,6 +317,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				273868122364555B009C530A /* ViewController.swift in Sources */,
+				27159FE82364A4BC000EE9D2 /* Venue.swift in Sources */,
+				27159FEC2364A5C0000EE9D2 /* Errors.swift in Sources */,
 				27159FE523648A9E000EE9D2 /* ViewModel.swift in Sources */,
 				273868102364555B009C530A /* AppDelegate.swift in Sources */,
 			);
@@ -310,7 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27159FED2364A5C0000EE9D2 /* Errors.swift in Sources */,
 				27159FE623648A9E000EE9D2 /* ViewModel.swift in Sources */,
+				27159FE92364A4BC000EE9D2 /* Venue.swift in Sources */,
 				273868252364555E009C530A /* NearBy_iOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
