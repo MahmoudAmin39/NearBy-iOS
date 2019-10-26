@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ASz-Pu-zZK">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ASz-Pu-zZK">
                                 <rect key="frame" x="50" y="355" width="314" height="186.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q4r-Ka-pDw">
@@ -64,6 +64,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="NearBy" id="tMa-nf-ygg"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ElX-xm-0Dk" id="E2A-Xm-PjV"/>
+                        <outlet property="errorImage" destination="q4r-Ka-pDw" id="ZlE-9A-1gj"/>
+                        <outlet property="errorLabel" destination="jog-9n-2jU" id="LOg-Dv-Eye"/>
+                        <outlet property="errorView" destination="ASz-Pu-zZK" id="K5h-2L-KgY"/>
+                        <outlet property="retryButton" destination="3bf-wH-Ip6" id="Qar-16-6US"/>
+                        <outlet property="venuesTableView" destination="UhE-6i-XoF" id="pup-Dd-rx2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
