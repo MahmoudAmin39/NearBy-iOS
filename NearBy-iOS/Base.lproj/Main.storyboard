@@ -66,9 +66,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="NearBy" id="tMa-nf-ygg"/>
+                    <navigationItem key="navigationItem" title="NearBy" id="tMa-nf-ygg">
+                        <barButtonItem key="rightBarButtonItem" title="Single Update" id="Stl-7P-z5h">
+                            <connections>
+                                <action selector="barItemButtonClicked:" destination="BYZ-38-t0r" id="eUO-lf-2aB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="ElX-xm-0Dk" id="E2A-Xm-PjV"/>
+                        <outlet property="barItemButton" destination="Stl-7P-z5h" id="HW8-qy-mnr"/>
                         <outlet property="errorImage" destination="q4r-Ka-pDw" id="ZlE-9A-1gj"/>
                         <outlet property="errorLabel" destination="jog-9n-2jU" id="LOg-Dv-Eye"/>
                         <outlet property="errorView" destination="ASz-Pu-zZK" id="K5h-2L-KgY"/>
@@ -78,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="109.82142857142857"/>
+            <point key="canvasLocation" x="771" y="110"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NyA-CQ-c12">

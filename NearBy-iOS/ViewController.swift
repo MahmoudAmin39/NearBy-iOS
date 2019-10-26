@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 
 class ViewController: UIViewController, UITableViewDataSource, CLLocationManagerDelegate {
-    
+    // Outlets
     @IBOutlet weak var errorView: UIStackView!
     
     @IBOutlet weak var errorImage: UIImageView!
@@ -24,9 +24,16 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     
     @IBOutlet weak var retryBUtton: UIButton!
     
+    @IBOutlet weak var barItemButton: UIBarButtonItem!
+    
+    // Helper classes
     let networkReachabilityManager = NetworkReachabilityManager(host: "www.apple.com")
     let locationManager = CLLocationManager()
+    let userDefaults = UserDefaults.standard
+    
+    // Properties
     var errorCode: AppError?
+    var appMode: AppMode = .Realtime
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +71,9 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
+            // Get the app mode
+            appMode = AppMode(rawValue: userDefaults.integer(forKey: "AppMode")) ?? .Realtime
+            setBarButton()
             // TODO: Get the location
             break
         case .denied, .restricted:
@@ -73,7 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         }
     }
     
-    // Visibility manipulation
+    // View functions
     
     func showError(error: ErrorObject) {
         errorView.isHidden = false
@@ -103,6 +113,16 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         venuesTableView.isHidden = false
     }
     
+    func setBarButton() {
+        switch appMode {
+        case .Realtime:
+            barItemButton.title = "Single Update"
+        case .SingleUpdate:
+            barItemButton.title = "Realtime"
+        }
+    }
+    // IBActions
+    
     @IBAction func retryButtonClicked() {
         switch errorCode {
         case .none:
@@ -112,4 +132,14 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         }
     }
     
+    @IBAction func barItemButtonClicked(_ sender: UIBarButtonItem) {
+        switch appMode {
+        case .Realtime:
+            appMode = .SingleUpdate
+        case .SingleUpdate:
+            appMode = .Realtime
+        }
+        userDefaults.set(appMode.rawValue, forKey: "AppMode")
+        setBarButton()
+    }
 }
