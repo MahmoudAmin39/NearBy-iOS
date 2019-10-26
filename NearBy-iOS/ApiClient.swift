@@ -55,9 +55,21 @@ struct ApiClient {
                             completion(nil, error)
                             return
                     }
-                
-                    print(items)
-                    completion([Venue](), nil)
+                    var venues = [Venue]()
+                    _ = items.enumerated().map { (index, item) in
+                        let castedItem = item as? [String: Any]
+                        guard let newItem = castedItem else {
+                            print("Error with item at \(index)")
+                            return
+                        }
+                        let venue = Venue(with: newItem["venue"] as? [String: Any])
+                        guard let newVenue = venue else {
+                            print("Error with venue at \(index)")
+                            return
+                        }
+                        venues.append(newVenue)
+                    }
+                    completion(venues, nil)
             }
         }
     }

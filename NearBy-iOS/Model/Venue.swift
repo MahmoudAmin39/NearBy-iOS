@@ -14,9 +14,13 @@ struct Venue {
     var name: String
     var address: String
     
-    init(with json: Dictionary<String, Any>) {
-        id = ""
-        name = ""
-        address = ""
+    init?(with json: [String: Any]?) {
+        if let json = json, let id = json["id"] as? String, let name = json["name"] as? String, let location = json["location"] as? [String: Any], let address = location["address"] as? String {
+            self.name = name
+            self.id = id
+            self.address = address
+            return
+        }
+        return nil
     }
 }
