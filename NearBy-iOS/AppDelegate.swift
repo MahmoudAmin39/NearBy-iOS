@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "NearBy Database")
+        let container = NSPersistentContainer(name: Constants.databaseName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

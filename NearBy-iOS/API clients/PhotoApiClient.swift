@@ -12,10 +12,6 @@ import CoreData
 
 struct PhotoApiClient {
     
-    let baseUrl = "https://api.foursquare.com/v2/"
-    let clientId = "ARGWPW5P3JAFNGBAHEG24M0BDCONDMI4U3YE5JALP2I0GYMB"
-    let clientSecret = "E3CY4R2KFJDX3QN4KTBHMXWO4NKPLLLYY2F5YNKHOXPRPBJH"
-    let dateVersion = "20200101"
     var venueId: String?
     
     @available(iOS 10.0, *)
@@ -30,7 +26,7 @@ struct PhotoApiClient {
     var photoRequest: String? {
         get {
             if let id = venueId {
-                return "\(baseUrl)venues/\(id)/photos?client_id=\(clientId)&client_secret=\(clientSecret)&v=\(dateVersion)"
+                return "\(Constants.baseUrl)venues/\(id)/photos?client_id=\(Constants.clientId)&client_secret=\(Constants.clientSecret)&v=\(Constants.dateVersion)"
             } else {
                 return nil
             }
@@ -40,7 +36,7 @@ struct PhotoApiClient {
     mutating func getPhotoUrl(forVenue id: String, completion: @escaping (String?) -> ()) {
         self.venueId = id
         // Fetch photo url from core data
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PhotoUrl")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Constants.entityName)
         fetchRequest.predicate = NSPredicate(format: "venueId == %@", id)
         do {
             if #available(iOS 10.0, *) {
@@ -51,7 +47,7 @@ struct PhotoApiClient {
                     return
                 }
                 
-                let url = firstPhotoUrl.value(forKey: "photoUrl") as? String
+                let url = firstPhotoUrl.value(forKey: Constants.photoUrl) as? String
                 completion(url)
             } else {
                 sendRequest(forVenue: id, completion: completion)
@@ -91,11 +87,11 @@ struct PhotoApiClient {
                 // Save the Photo url to Core data
                 if #available(iOS 10.0, *) {
                     if let context = self.context,
-                        let entity =  NSEntityDescription.entity(forEntityName: "PhotoUrl", in: context),
+                        let entity =  NSEntityDescription.entity(forEntityName: Constants.entityName, in: context),
                         let photo = photo {
                             let photoObejct = NSManagedObject(entity: entity, insertInto: context)
-                            photoObejct.setValue(photo.venueId, forKey: "venueId")
-                            photoObejct.setValue(photo.fullUrl, forKey: "photoUrl")
+                            photoObejct.setValue(photo.venueId, forKey: Constants.venueId)
+                            photoObejct.setValue(photo.fullUrl, forKey: Constants.photoUrl)
                             do {
                                 try context.save()
                             } catch let error as NSError {
