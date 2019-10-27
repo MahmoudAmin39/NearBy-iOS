@@ -8,16 +8,24 @@
 
 import Foundation
 import Alamofire
+import CoreData
 
 struct PhotoApiClient {
     
     let baseUrl = "https://api.foursquare.com/v2/"
-    let clientId = "HYRDE0P5SFIRQR0GSH5JS4SSRUG4KA23IWPDXFJK2TZVEV0R"
-    let clientSecret = "NZ4JWFYPAYXRPYBZ0RYZZ3L5WKOPF2B2MIXLY0CUPGZUGV4S"
+    let clientId = "ARGWPW5P3JAFNGBAHEG24M0BDCONDMI4U3YE5JALP2I0GYMB"
+    let clientSecret = "E3CY4R2KFJDX3QN4KTBHMXWO4NKPLLLYY2F5YNKHOXPRPBJH"
     let dateVersion = "20200101"
     var venueId: String?
     
-    // https://api.foursquare.com/v2/venues/VENUE_ID/photos
+    @available(iOS 10.0, *)
+    var context: NSManagedObjectContext? {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return nil
+        }
+        return appDelegate.persistentContainer.viewContext
+    }
     
     var photoRequest: String? {
         get {
@@ -31,7 +39,32 @@ struct PhotoApiClient {
     
     mutating func getPhotoUrl(forVenue id: String, completion: @escaping (String?) -> ()) {
         self.venueId = id
+        // Fetch photo url from core data
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PhotoUrl")
+        fetchRequest.predicate = NSPredicate(format: "venueId == %@", id)
+        do {
+            if #available(iOS 10.0, *) {
+                let photoUrl = try self.context?.fetch(fetchRequest)
+                guard let photoUrls = photoUrl, let firstPhotoUrl = photoUrls.first else {
+                    // It is nil
+                    sendRequest(forVenue: id, completion: completion)
+                    return
+                }
+                
+                let url = firstPhotoUrl.value(forKey: "photoUrl") as? String
+                completion(url)
+            } else {
+                sendRequest(forVenue: id, completion: completion)
+            }
+            
+        } catch let error as NSError {
+            print("Error fetching data from Database: \(error.description)")
+        }
+    }
+    
+    func sendRequest(forVenue id: String, completion: @escaping (String?) -> ()) {
         // Send the request
+        print("Sending request")
         if let requestString = photoRequest {
             guard let url = URL(string: requestString) else {
                 let _ = ErrorObject(messageBody: "Wrong request Url", imageName: "cloud", errorCode: .BadRequest)
@@ -54,6 +87,23 @@ struct PhotoApiClient {
                 }
                 
                 let photo = Photo(with: photoJson, forVenue: id)
+                
+                // Save the Photo url to Core data
+                if #available(iOS 10.0, *) {
+                    if let context = self.context,
+                        let entity =  NSEntityDescription.entity(forEntityName: "PhotoUrl", in: context),
+                        let photo = photo {
+                            let photoObejct = NSManagedObject(entity: entity, insertInto: context)
+                            photoObejct.setValue(photo.venueId, forKey: "venueId")
+                            photoObejct.setValue(photo.fullUrl, forKey: "photoUrl")
+                            do {
+                                try context.save()
+                            } catch let error as NSError {
+                                print("Error saving data to Database: \(error.description)")
+                            }
+                    }
+                }
+                
                 completion(photo?.fullUrl)
             }
         }
