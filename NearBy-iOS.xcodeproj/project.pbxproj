@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2706B23B2365E4070021DE04 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706B23A2365E4070021DE04 /* Photo.swift */; };
 		27159FE523648A9E000EE9D2 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE423648A9E000EE9D2 /* ViewModel.swift */; };
 		27159FE623648A9E000EE9D2 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE423648A9E000EE9D2 /* ViewModel.swift */; };
 		27159FE82364A4BC000EE9D2 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27159FE72364A4BC000EE9D2 /* Venue.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		1FAA0B3D266221FCE0F30A43 /* Pods_NearBy_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearBy_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2706B23A2365E4070021DE04 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		27159FE423648A9E000EE9D2 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		27159FE72364A4BC000EE9D2 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		27159FEB2364A5C0000EE9D2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				27159FE72364A4BC000EE9D2 /* Venue.swift */,
 				27159FEB2364A5C0000EE9D2 /* Errors.swift */,
 				27159FEE2364B019000EE9D2 /* AppMode.swift */,
+				2706B23A2365E4070021DE04 /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				27159FF62364E614000EE9D2 /* VenueTableViewCell.swift in Sources */,
 				273868122364555B009C530A /* ViewController.swift in Sources */,
 				27159FF92364EC0A000EE9D2 /* PhotoApiClient.swift in Sources */,
+				2706B23B2365E4070021DE04 /* Photo.swift in Sources */,
 				27159FE82364A4BC000EE9D2 /* Venue.swift in Sources */,
 				27159FEF2364B019000EE9D2 /* AppMode.swift in Sources */,
 				27159FEC2364A5C0000EE9D2 /* Errors.swift in Sources */,

@@ -13,8 +13,8 @@ import Alamofire
 struct VenueApiClient {
     
     let baseUrl = "https://api.foursquare.com/v2/"
-    let clientId = "5AAKGAAOYCKET3DK3IRT42YQOBP50EGTJU4S0U1P1GE3QEI5"
-    let clientSecret = "WVTGKRKUHSEFTCHYVUWBDTOJRQZXROA5WIE3LJBL3MX0U0TJ"
+    let clientId = "DJHLNXGXU1LXEF0INOJ0RS1GZVZKN33SMEWCHL2UEAH45XPJ"
+    let clientSecret = "BOF5JLA04UD4W1LSEJARVPXBGCTZFICSBNAYK22OLNR00WUP"
     let dateVersion = "20200101"
     var latLong: String?
     
