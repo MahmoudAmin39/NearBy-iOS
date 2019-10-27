@@ -8,6 +8,7 @@ target 'NearBy-iOS' do
 
   # Pods for NearBy-iOS
 
+  pod 'SDWebImage', '~> 5.0'
   pod 'Alamofire', '~> 4.9.0'
   target 'NearBy-iOSTests' do
     inherit! :search_paths

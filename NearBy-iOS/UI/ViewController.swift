@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 
 class ViewController: UIViewController, UITableViewDataSource, CLLocationManagerDelegate {
-    // Outlets
+    // MARK: Outlets
     @IBOutlet weak var errorView: UIStackView!
     
     @IBOutlet weak var errorImage: UIImageView!
@@ -26,19 +26,19 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
     
     @IBOutlet weak var barItemButton: UIBarButtonItem!
     
-    // Helper classes
+    // MARK: Helper classes
     let networkReachabilityManager = NetworkReachabilityManager(host: "www.apple.com")
     let locationManager = CLLocationManager()
     let userDefaults = UserDefaults.standard
     var apiClient = VenueApiClient()
     
-    // Properties
+    // MARK: Properties
     var errorCode: AppError?
     var appMode: AppMode = .Realtime
     var lastLocationSentToServer: CLLocation?
     var venuesToShow = [Venue]()
     
-    // Constants
+    // MARK: Constants
     let ThresholdDistance = 500.0
     let AppModeKey = "AppMode"
     
@@ -67,7 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         networkReachabilityManager?.startListening()
     }
     
-    // TableView Implementation
+    // MARK: TableView Implementation
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venuesToShow.count
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         return UITableViewCell()
     }
     
-    // Location Delegate
+    // MARK: Location Delegate
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -135,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         show(error)
     }
     
-    // API functions
+    // MARK: API functions
     
     func sendRequest() {
         if let currenLocation = lastLocationSentToServer {
@@ -156,7 +156,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         }
     }
     
-    // View functions
+    // MARK: View functions
     
     func show(_ error: ErrorObject) {
         errorView.isHidden = false
@@ -197,7 +197,7 @@ class ViewController: UIViewController, UITableViewDataSource, CLLocationManager
         }
     }
     
-    // IBActions
+    // MARK: IBActions
     
     @IBAction func retryButtonClicked() {
         switch errorCode {
