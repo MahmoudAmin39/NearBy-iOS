@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class VenueTableViewCell: UITableViewCell {
 
@@ -24,12 +25,12 @@ class VenueTableViewCell: UITableViewCell {
         venueAddressLabel.text = venueData.address
         
         apiClient.getPhotoUrl(forVenue: venueData.id) { [weak self] url in
-            guard let url = url else {
+            guard let urlString = url else {
                 self?.venueImageView.image = UIImage(named: "error")
                 return
             }
-            
-            // Show the image
+            let url = URL(string: urlString)
+            self?.venueImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "photo"))
         }
     }
 }
