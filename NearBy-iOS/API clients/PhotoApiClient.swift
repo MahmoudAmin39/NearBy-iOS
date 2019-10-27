@@ -54,7 +54,6 @@ struct PhotoApiClient {
                 }
                 
                 let photo = Photo(with: photoJson, forVenue: id)
-                print(photo?.fullUrl)
                 completion(photo?.fullUrl)
             }
         }

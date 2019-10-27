@@ -26,6 +26,7 @@
 		273868172364555D009C530A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 273868162364555D009C530A /* Assets.xcassets */; };
 		2738681A2364555D009C530A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 273868182364555D009C530A /* LaunchScreen.storyboard */; };
 		273868252364555E009C530A /* NearBy_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273868242364555E009C530A /* NearBy_iOSTests.swift */; };
+		27747EF523660706001EB4A0 /* NearBy Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27747EF323660706001EB4A0 /* NearBy Database.xcdatamodeld */; };
 		8AE76BA54D39F591F1449314 /* Pods_NearBy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489D82C3FFFE9822623AEE1A /* Pods_NearBy_iOS.framework */; };
 		F529C8C3E23D2DC9A63ABB17 /* Pods_NearBy_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAA0B3D266221FCE0F30A43 /* Pods_NearBy_iOSTests.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		273868202364555E009C530A /* NearBy-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NearBy-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		273868242364555E009C530A /* NearBy_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearBy_iOSTests.swift; sourceTree = "<group>"; };
 		273868262364555E009C530A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27747EF423660706001EB4A0 /* NearBy Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NearBy Database.xcdatamodel"; sourceTree = "<group>"; };
 		489D82C3FFFE9822623AEE1A /* Pods_NearBy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearBy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CE751149725C3CF99DA99EA /* Pods-NearBy-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearBy-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-NearBy-iOSTests/Pods-NearBy-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9B48199597C6188577591D6D /* Pods-NearBy-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearBy-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NearBy-iOSTests/Pods-NearBy-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		27159FEA2364A5A7000EE9D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				27747EF2236606ED001EB4A0 /* Core Data */,
 				27159FE72364A4BC000EE9D2 /* Venue.swift */,
 				27159FEB2364A5C0000EE9D2 /* Errors.swift */,
 				27159FEE2364B019000EE9D2 /* AppMode.swift */,
@@ -159,6 +162,14 @@
 				273868262364555E009C530A /* Info.plist */,
 			);
 			path = "NearBy-iOSTests";
+			sourceTree = "<group>";
+		};
+		27747EF2236606ED001EB4A0 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				27747EF323660706001EB4A0 /* NearBy Database.xcdatamodeld */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		94245A7EF9D7D0E832404B0C /* Frameworks */ = {
@@ -349,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27747EF523660706001EB4A0 /* NearBy Database.xcdatamodeld in Sources */,
 				27159FF22364C695000EE9D2 /* VenueApiClient.swift in Sources */,
 				27159FF62364E614000EE9D2 /* VenueTableViewCell.swift in Sources */,
 				273868122364555B009C530A /* ViewController.swift in Sources */,
@@ -636,6 +648,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		27747EF323660706001EB4A0 /* NearBy Database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				27747EF423660706001EB4A0 /* NearBy Database.xcdatamodel */,
+			);
+			currentVersion = 27747EF423660706001EB4A0 /* NearBy Database.xcdatamodel */;
+			path = "NearBy Database.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 273868042364555B009C530A /* Project object */;
 }
