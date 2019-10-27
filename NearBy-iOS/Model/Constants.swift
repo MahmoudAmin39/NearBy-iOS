@@ -9,8 +9,8 @@
 struct Constants {
     // Request builder
     static let baseUrl = "https://api.foursquare.com/v2/"
-    static let clientId = "ARGWPW5P3JAFNGBAHEG24M0BDCONDMI4U3YE5JALP2I0GYMB"
-    static let clientSecret = "E3CY4R2KFJDX3QN4KTBHMXWO4NKPLLLYY2F5YNKHOXPRPBJH"
+    static let clientId = "245D3ZOCUVGK2RB421JTM2RLNU21KYOOYGJ2JTHA2CBWNQMQ"
+    static let clientSecret = "Z2FR1Q0D534LQLL5HAHQUWMGQXN5WSDDYQV4TBESUGH2LVMJ"
     static let dateVersion = "20200101"
     
     // Core data
